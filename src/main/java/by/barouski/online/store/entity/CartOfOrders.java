@@ -1,26 +1,31 @@
 package by.barouski.online.store.entity;
 
+import jakarta.persistence.Entity;
 import org.springframework.data.annotation.Id;
-
+@Entity
 public class CartOfOrders {
     @Id
-    private long id;
+    private long cartId;
     private int quantityOfGoods;
+    private float totalCost;
 
-    public CartOfOrders() {
+
+    public CartOfOrders(float totalCost) {
+        this.totalCost = totalCost;
     }
 
-    public CartOfOrders(long id, int quantityOfGoods) {
-        this.id = id;
+    public CartOfOrders(long cartId, int quantityOfGoods, float totalCost) {
+        this.cartId = cartId;
         this.quantityOfGoods = quantityOfGoods;
+        this.totalCost = totalCost;
     }
 
-    public long getId() {
-        return id;
+    public long getCartId() {
+        return cartId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCartId(long cartId) {
+        this.cartId = cartId;
     }
 
     public int getQuantityOfGoods() {
@@ -29,5 +34,13 @@ public class CartOfOrders {
 
     public void setQuantityOfGoods(int quantityOfGoods) {
         this.quantityOfGoods = quantityOfGoods;
+    }
+
+    public float getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(float totalCost) {
+        this.totalCost = totalCost;
     }
 }

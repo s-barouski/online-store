@@ -1,34 +1,36 @@
 package by.barouski.online.store.entity;
 
+import jakarta.persistence.Entity;
 import org.springframework.data.annotation.Id;
-
+@Entity
 public class Product {
 @Id
 
-    private long id;
+    private long productId;
     private String name;
     private String description;
     private long price;
-    private boolean status;
+    private int quantity;
 
-    public Product(){
+    public Product (){
 
     }
 
-    public Product(long id, String name, String description, long price, boolean status) {
-        this.id = id;
+    public Product(long productId, String name, String description, long price, int quantity) {
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.status = status;
+        this.quantity = quantity;
     }
 
-    public long getId() {
-        return id;
+
+    public long getProductId() {
+        return productId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -55,11 +57,12 @@ public class Product {
         this.price = price;
     }
 
-    public boolean isStatus() {
-        return status;
+
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

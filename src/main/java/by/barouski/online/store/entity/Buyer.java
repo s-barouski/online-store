@@ -1,12 +1,12 @@
 package by.barouski.online.store.entity;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
 import org.springframework.data.annotation.Id;
-
+@Entity
 public class Buyer {
     @Id
 
-    private long id;
+    private long buyerId;
     private String firstName;
     private String lastName;
     private long phoneNumber;
@@ -15,20 +15,20 @@ public class Buyer {
     public Buyer() {
     }
 
-    public Buyer(long id, String firstName, String lastName, long phoneNumber, String email) {
-        this.id = id;
+    public Buyer(long buyerId, String firstName, String lastName, long phoneNumber, String email) {
+        this.buyerId = buyerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public long getBuyerId() {
+        return buyerId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setBuyerId(long buyerId) {
+        this.buyerId = buyerId;
     }
 
     public String getFirstName() {

@@ -1,28 +1,29 @@
 package by.barouski.online.store.entity;
 
+import jakarta.persistence.Entity;
 import org.springframework.data.annotation.Id;
-
+@Entity
 public class Order {
     @Id
-    private long id;
+    private long orderId;
     private long date;
     private long totalCost;
 
     public Order() {
     }
 
-    public Order(long id, long date, long totalCost) {
-        this.id = id;
+    public Order(long orderId, long date, long totalCost) {
+        this.orderId = orderId;
         this.date = date;
         this.totalCost = totalCost;
     }
 
-    public long getId() {
-        return id;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public long getDate() {
