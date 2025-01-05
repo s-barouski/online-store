@@ -2,30 +2,26 @@ package by.barouski.online.store.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
-public class Order {
+@Getter
+
+public class OrderHistory {
     @Id
-    private Long orderId;
-    private Long date;
-    private Long totalCost;
     private Long orderHistoryId;
+    private Long buyerId;
 
-    @ManyToOne
-    private OrderHistory orderHistory;
-
-    @OneToOne
-    private Delivery delivery;
-
-
+    @OneToMany
+    private List<Order> orders;
 }

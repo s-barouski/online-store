@@ -23,6 +23,6 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public List<Buyer> getAllBuyers() {
-        return buyerRepository.getAllBuyers();
+        return buyerRepository.findAll();
     }
 }

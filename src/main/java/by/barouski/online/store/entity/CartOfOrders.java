@@ -1,46 +1,34 @@
 package by.barouski.online.store.entity;
 
 import jakarta.persistence.Entity;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+import java.util.List;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CartOfOrders {
     @Id
-    private long cartId;
+    private Long cartId;
     private int quantityOfGoods;
     private float totalCost;
 
+    @ManyToMany
+    private List<Product> products;
 
-    public CartOfOrders(float totalCost) {
-        this.totalCost = totalCost;
-    }
+    @OneToOne
+    private Buyer buyer;
 
-    public CartOfOrders(long cartId, int quantityOfGoods, float totalCost) {
-        this.cartId = cartId;
-        this.quantityOfGoods = quantityOfGoods;
-        this.totalCost = totalCost;
-    }
 
-    public long getCartId() {
-        return cartId;
-    }
 
-    public void setCartId(long cartId) {
-        this.cartId = cartId;
-    }
-
-    public int getQuantityOfGoods() {
-        return quantityOfGoods;
-    }
-
-    public void setQuantityOfGoods(int quantityOfGoods) {
-        this.quantityOfGoods = quantityOfGoods;
-    }
-
-    public float getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(float totalCost) {
-        this.totalCost = totalCost;
-    }
 }

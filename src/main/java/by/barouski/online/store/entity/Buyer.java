@@ -1,65 +1,35 @@
 package by.barouski.online.store.entity;
 
 import jakarta.persistence.Entity;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+import java.util.List;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class Buyer {
     @Id
 
-    private long buyerId;
+    private Long buyerId;
     private String firstName;
     private String lastName;
-    private long phoneNumber;
+    private Long phoneNumber;
     private String email;
 
-    public Buyer() {
-    }
+    @ManyToMany
+    private List<Authority> authorities;
 
-    public Buyer(long buyerId, String firstName, String lastName, long phoneNumber, String email) {
-        this.buyerId = buyerId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-    }
+    @OneToOne
+    private OrderHistory orderHistory;
 
-    public long getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(long buyerId) {
-        this.buyerId = buyerId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

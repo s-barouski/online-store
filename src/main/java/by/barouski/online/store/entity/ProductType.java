@@ -4,7 +4,7 @@ public enum ProductType {
     HOUSEHOLD_INSTRUMENTATION ("Бытовые приборы"),
     COMPUTER_EQUIPMENT ("Компьютерная техника"),
     SMARTPHONES ("Смартфоны"),
-    CLIMATE_CONTROL_EQUIPMENT ("Климатическое обоудование"),
+    CLIMATE_CONTROL_EQUIPMENT ("Климатическое оборудование"),
     AUXILIARY_DEVICES ("Вспомогательные устройства");
 
     private String description;
