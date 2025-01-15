@@ -1,8 +1,6 @@
 package by.barouski.online.store.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,17 +14,23 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table
 public class Product {
 @Id
-
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "productId")
     private Long productId;
+    @Column(name = "name")
     private String name;
+    @Column(name = "description")
     private String description;
+    @Column(name = "price")
     private Long price;
+    @Column(name = "quantity")
     private int quantity;
 
     @ManyToMany
-    private List<CartOfOrders> cartOfOrders;
+    private List<CartOfOrder> cartOfOrders;
 
 
 }
