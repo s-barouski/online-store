@@ -1,9 +1,6 @@
 package by.barouski.online.store.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CartOfOrders {
+@Table(name = "cart_of_order")
+public class CartOfOrder {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cart_id")
     private Long cartId;
+    @Column(name = "quantityOfGoods")
     private int quantityOfGoods;
+    @Column(name = "totalCost")
     private float totalCost;
 
     @ManyToMany

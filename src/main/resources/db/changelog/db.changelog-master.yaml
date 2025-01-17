@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - changeSet:
+      id: buyer
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/buyerCreateTable.sql
+  - changeSet:
+      id: authority
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/authorityCreateTable.sql
+  - changeSet:
+      id: delivery
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/deliveryCreateTable.sql
+  - changeSet:
+      id: order
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/orderingCreateTable.sql
+  - changeSet:
+      id: order_history
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/orderingHistoryCreateTable.sql
+  - changeSet:
+      id: product
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/productCreateTable.sql
+  - changeSet:
+      id: buyer_authority
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/buyerAuthorityCreateTable.sql
+  - changeSet:
+      id: cart_of_order
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/cartOfOdrerCreateTable.sql

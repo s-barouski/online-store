@@ -1,24 +1,29 @@
 package by.barouski.online.store.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Order {
+@Table(name = "order")
+public class Ordering {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "orderId")
     private Long orderId;
-    private Long date;
+    @Column(name= "order_date")
+    private LocalDateTime order_date;
+    @Column(name= "totalCost")
     private Long totalCost;
+    @Column(name= "orderHistoryId")
     private Long orderHistoryId;
 
     @ManyToOne

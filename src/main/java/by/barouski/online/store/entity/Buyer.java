@@ -1,9 +1,6 @@
 package by.barouski.online.store.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,19 +14,29 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@Table
 public class Buyer {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "buyerID")
     private Long buyerId;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "phone_number")
     private Long phoneNumber;
+    @Column(name = "email")
     private String email;
 
     @ManyToMany
+    @JoinTable(name="buyer_authority",
+            joinColumns=  @JoinColumn(name="buyer_id", referencedColumnName="buyerId"),
+            inverseJoinColumns= @JoinColumn(name="authority_id", referencedColumnName="ID") )
     private List<Authority> authorities;
 
     @OneToOne
+    @PrimaryKeyJoinColumn(name = "order_history")
     private OrderHistory orderHistory;
 
 }

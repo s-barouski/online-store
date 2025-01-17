@@ -1,9 +1,6 @@
 package by.barouski.online.store.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,12 +13,14 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-
+@Table(name = "order_history")
 public class OrderHistory {
     @Id
+    @Column(name = "orderHistoryId")
     private Long orderHistoryId;
+    @Column(name = "buyerId")
     private Long buyerId;
 
     @OneToMany
-    private List<Order> orders;
+    private List<Ordering> orderings;
 }
