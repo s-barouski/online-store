@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses={OrderHistoryMapper.class, AuthorityMapper.class})
+@Mapper(componentModel = "spring", uses={ProductMapper.class, BuyerMapper.class})
 public interface CartOfOrderMapper {
     List<CartOfOrder> cartOfOrderDtosToCartOfOrders(List<CartOfOrderDto> cartOfOrderDtos);
     List<CartOfOrderDto> cartOfOrdersToCartOfOrderDtos(List<CartOfOrder> cartOfOrders);
