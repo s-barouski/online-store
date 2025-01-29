@@ -11,6 +11,9 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses={OrderHistoryMapper.class, AuthorityMapper.class})
 public interface BuyerMapper {
     List<Buyer> buyerDtosToBuyers(List<BuyerDto> buyerDtos);
+    Buyer buyerDtoToBuyer (BuyerDto buyerDto);
+
     List<BuyerDto> buyersToBuyerDtos(List<Buyer> buyers);
+    BuyerDto buyerToBuyerDto(Buyer buyer);
 
 }

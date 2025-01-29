@@ -1,7 +1,6 @@
 create table ordering (
-orderId bigserial primary key,
+order_id bigserial primary key,
 order_date date,
-totalCost bigint,
-orderHistoryId bigint,
-deliveryId bigint references ordering(orderId)
+total_cost bigint,
+order_history_id bigint
 )

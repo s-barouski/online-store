@@ -11,5 +11,5 @@ public class OrderingDto {
 
     private Long totalCost;
 
-    private Long orderHistoryId;
+
 }

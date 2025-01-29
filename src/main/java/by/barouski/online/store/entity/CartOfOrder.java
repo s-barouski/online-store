@@ -20,16 +20,21 @@ public class CartOfOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cart_id")
     private Long cartId;
-    @Column(name = "quantityOfGoods")
+    @Column(name = "quantity_of_goods")
     private int quantityOfGoods;
-    @Column(name = "totalCost")
+    @Column(name = "total_cost")
     private float totalCost;
 
     @ManyToMany
+    @JoinTable(name="cart_of_orders_products",
+            joinColumns=  @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_id"),
+            inverseJoinColumns= @JoinColumn(name="product_id", referencedColumnName="product_id"))
     private List<Product> products;
 
     @OneToOne
+    @JoinColumn(name = "buyer_id", referencedColumnName = "buyer_id")
     private Buyer buyer;
+
 
 
 

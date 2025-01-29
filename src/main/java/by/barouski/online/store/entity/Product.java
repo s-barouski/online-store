@@ -18,7 +18,7 @@ import java.util.List;
 public class Product {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "productId")
+@Column(name = "product_id")
     private Long productId;
     @Column(name = "name")
     private String name;
@@ -30,6 +30,9 @@ public class Product {
     private int quantity;
 
     @ManyToMany
+    @JoinTable(name="cart_of_orders_products",
+            joinColumns=  @JoinColumn(name="product_id", referencedColumnName="product_id"),
+            inverseJoinColumns= @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_id"))
     private List<CartOfOrder> cartOfOrders;
 
 

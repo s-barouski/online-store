@@ -9,5 +9,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AuthorityMapper {
     List<Authority> authorityDtosToAuthoritys(List<AuthorityDto> authorityDtos);
+    Authority authorityDtoToAuthority(AuthorityDto authorityDto);
+
     List<AuthorityDto> authoritysToAuthorityDtos(List<Authority> authorities);
+    AuthorityDto authorityToAuthorityDto (Authority authority);
 }

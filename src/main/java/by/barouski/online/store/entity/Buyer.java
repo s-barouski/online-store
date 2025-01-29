@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
-@Table
+@Table(name = "buyer")
 public class Buyer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "buyerID")
+    @Column(name = "buyer_id")
     private Long buyerId;
     @Column(name = "first_name")
     private String firstName;
@@ -29,14 +29,19 @@ public class Buyer {
     @Column(name = "email")
     private String email;
 
+
     @ManyToMany
-    @JoinTable(name="buyer_authority",
-            joinColumns=  @JoinColumn(name="buyer_id", referencedColumnName="buyerId"),
-            inverseJoinColumns= @JoinColumn(name="authority_id", referencedColumnName="ID") )
+    @JoinTable(
+            name = "buyer_authority",
+            joinColumns = @JoinColumn(name = "buyer_id", referencedColumnName = "buyer_id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
+    )
     private List<Authority> authorities;
 
-    @OneToOne
-    @PrimaryKeyJoinColumn(name = "order_history")
+    @OneToOne(mappedBy = "buyer")
     private OrderHistory orderHistory;
+
+    @OneToOne(mappedBy = "buyer")
+    private CartOfOrder cartOfOrder;
 
 }

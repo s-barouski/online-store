@@ -1,4 +1,5 @@
 create table authority (
-ID bigserial primary key,
+authority_id bigserial primary key,
 name varchar
+
 )
