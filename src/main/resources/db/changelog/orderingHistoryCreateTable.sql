@@ -1,4 +1,4 @@
 create table order_history (
-orderHistoryId bigserial primary key,
-buyerId bigserial
+order_history_id bigserial primary key,
+buyer_id bigserial references buyer(buyer_id)
 )

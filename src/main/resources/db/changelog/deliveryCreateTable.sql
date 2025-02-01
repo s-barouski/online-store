@@ -1,8 +1,8 @@
 create table delivery (
-deliveryId bigserial primary key,
+delivery_id bigserial primary key,
 delivery_date date,
-deliveryType varchar,
-deliveryCost bigint,
+delivery_type varchar,
+delivery_cost bigint,
 address varchar,
-orderId bigint references delivery(deliveryId)
+order_id bigserial
 )

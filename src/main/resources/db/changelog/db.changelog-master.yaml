@@ -48,3 +48,9 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/cartOfOdrerCreateTable.sql
+  - changeSet:
+      id: cart_of_order_products
+      author: Sergey
+      changes:
+        - sqlFile:
+            path: db/changelog/cartOfOdrerProductsCreateTable.sql

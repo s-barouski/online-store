@@ -13,24 +13,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "order")
+@Table(name = "ordering")
 public class Ordering {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "orderId")
+    @Column(name= "order_id")
     private Long orderId;
     @Column(name= "order_date")
     private LocalDateTime order_date;
     @Column(name= "totalCost")
     private Long totalCost;
-    @Column(name= "orderHistoryId")
-    private Long orderHistoryId;
 
     @ManyToOne
+    @JoinColumn(name = "order_history_id", nullable = false)
     private OrderHistory orderHistory;
 
     @OneToOne
+    @JoinColumn(name = "delivery_id", referencedColumnName = "delivery_id")
     private Delivery delivery;
+
 
 
 }

@@ -6,8 +6,11 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses={CartOfOrderMapper.class})
 public interface ProductMapper {
     List<Product> productDtosToProducts(List<ProductDto> productDtos);
+    Product productDtoToProduct (ProductDto productDto);
+
     List<ProductDto> productsToProductDtos(List<Product> products);
+    ProductDto productToProductDto(Product product);
 }

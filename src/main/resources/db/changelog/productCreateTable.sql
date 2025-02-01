@@ -1,5 +1,5 @@
 create table product (
-productId bigserial primary key,
+product_id bigserial primary key,
 name varchar,
 description varchar,
 price bigint,

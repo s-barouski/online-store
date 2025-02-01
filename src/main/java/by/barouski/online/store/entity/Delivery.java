@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "deliveryId")
+    @Column(name = "delivery_id")
     private Long deliveryId;
     @Column(name = "delivery_date")
     private LocalDateTime delivery_date;
@@ -28,7 +28,7 @@ public class Delivery {
     @Column(name = "address")
     private String address;
 
-    @OneToOne
+
+    @OneToOne(mappedBy = "delivery")
     private Ordering ordering;
 }
-
