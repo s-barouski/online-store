@@ -18,8 +18,7 @@ public class OrderHistory {
     @Id
     @Column(name = "order_history_id")
     private Long orderHistoryId;
-//    @Column(name = "buyer_id")
-//    private Long buyerId;
+
 
     @OneToMany(mappedBy = "orderHistory")
     private List<Ordering> orderingList;

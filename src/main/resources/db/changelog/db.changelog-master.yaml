@@ -53,4 +53,4 @@ databaseChangeLog:
       author: Sergey
       changes:
         - sqlFile:
-            path: db/changelog/cartOfOdrerProductsCreateTable.sql
+            path: db/changelog/cartOfOdrersProductsCreateTable.sql
