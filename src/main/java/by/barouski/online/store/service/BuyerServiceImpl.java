@@ -17,14 +17,29 @@ public class BuyerServiceImpl implements BuyerService {
 
     }
 
-    @Override
-    public void createBuyer(List<Buyer> buyers) {
 
-        buyerRepository.saveAll(buyers);
+    @Override
+    public void createBuyer(Buyer buyer) {
+        buyerRepository.save(buyer);
+
     }
 
     @Override
     public List<Buyer> getAllBuyers() {
+
         return buyerRepository.findAll();
+
     }
+
+
+    @Override
+    public void updateBuyer(Buyer buyer) {
+
+
+    }
+
+    public void deleteBuyer(Long id) {
+        buyerRepository.deleteById(id);
+    }
+
 }

@@ -17,13 +17,23 @@ public class BuyerController {
 
     }
 
-    @PostMapping("/buyer")
-    void postBuyer(@RequestBody List<Buyer> buyer) {
-        buyerService.createBuyer(buyer);
+    @PostMapping
+    public void postBuyer(@RequestBody Buyer buyer) {
+
+            buyerService.createBuyer(buyer);
     }
 
     @GetMapping
     List<Buyer> getAllBuyers() {
         return buyerService.getAllBuyers();
     }
+    @PutMapping
+    void putBuyer(@RequestBody Buyer buyer) {
+        buyerService.updateBuyer(buyer);
+    }
+    @DeleteMapping
+    void deleteBuyer(@RequestParam Long id){
+        buyerService.deleteBuyer(id);
+    }
 }
+
