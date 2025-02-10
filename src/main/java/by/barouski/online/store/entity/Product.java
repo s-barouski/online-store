@@ -28,6 +28,8 @@ public class Product {
     private Long price;
     @Column(name = "quantity")
     private int quantity;
+    @Column(name = "image_path")
+    protected String imagePath;
 
     @ManyToMany
     @JoinTable(name="cart_of_orders_products",

@@ -34,7 +34,7 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public void updateBuyer(Buyer buyer) {
-
+buyerRepository.saveAndFlush(buyer);
 
     }
 
