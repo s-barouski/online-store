@@ -32,6 +32,7 @@ public class ProductController {
     public Resource getPicture(@PathVariable Long id) {
         return productService.getPicture(id);
     }
+
     @PostMapping
     public void postProduct(@RequestBody Product product) {
 
@@ -42,12 +43,15 @@ public class ProductController {
     List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
-    @PutMapping
-    void putProduct(@RequestBody Product product) {
-        productService.updateProduct(product);
+
+    @PutMapping("/{id}")
+    public void putPicture(@RequestPart(value = "picture") MultipartFile picture,
+                           @PathVariable Long id) throws IOException {
+        productService.putPicture(picture, id);
     }
+
     @DeleteMapping
-    void deleteProduct(@RequestParam Long id){
+    void deleteProduct(@RequestParam Long id) {
         productService.deleteProduct(id);
     }
 }

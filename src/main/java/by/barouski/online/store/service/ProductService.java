@@ -5,6 +5,7 @@ import by.barouski.online.store.entity.Product;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
@@ -20,5 +21,7 @@ public interface ProductService {
     void updateProduct(Product product);
 
     void deleteProduct (Long id);
+
+    void putPicture(MultipartFile picture, Long id) throws IOException;
 
 }
