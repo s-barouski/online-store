@@ -1,7 +1,7 @@
 package by.barouski.online.store.service;
 
-import by.barouski.online.store.entity.Buyer;
 import by.barouski.online.store.entity.Product;
+import by.barouski.online.store.service.dto.ProductDto;
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface ProductService {
 
-    void uploadPicture(MultipartFile picture, Product product);
+    void uploadPicture(MultipartFile picture, ProductDto productDto);
 
     Resource getPicture(Long id);
 
-    void createProduct(Product product);
+    void createProduct(ProductDto productDto);
 
-    List<Product> getAllProducts();
+    List<ProductDto> getAllProducts();
 
     void updateProduct(Product product);
 

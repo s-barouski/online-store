@@ -4,6 +4,8 @@ import by.barouski.online.store.entity.Image;
 import by.barouski.online.store.entity.Product;
 import by.barouski.online.store.repo.ImageRepository;
 import by.barouski.online.store.repo.ProductRepository;
+import by.barouski.online.store.service.dto.ProductDto;
+import by.barouski.online.store.service.mapper.ProductMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -18,6 +20,7 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
+
 @Slf4j
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -26,21 +29,24 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
+    private final ProductMapper productMapper;
 
-    public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository, ProductMapper productMapper) {
         this.productRepository = productRepository;
         this.imageRepository = imageRepository;
+        this.productMapper = productMapper;
     }
 
     @Override
-    public void uploadPicture(MultipartFile picture, Product product) {
+    public void uploadPicture(MultipartFile picture, ProductDto productDto) {
         try {
             String path = "";
             if (picture != null) {
                 path = directory + UUID.nameUUIDFromBytes(picture.getBytes());
                 picture.transferTo(Path.of(path));
             }
-            product.setImagePath(path);
+            productDto.setImagePath(path);
+            Product product = productMapper.productDtoToProduct(productDto);
             productRepository.save(product);
         } catch (IOException e) {
             log.error(e.getLocalizedMessage());
@@ -56,18 +62,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void createProduct(Product product) {
+    public void createProduct(ProductDto productDto) {
+        Product product = productMapper.productDtoToProduct(productDto);
         productRepository.save(product);
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductDto> getAllProducts() {
+        List<ProductDto> productDtos;
+        List<Product> products;
+        products = productRepository.findAll();
+        productDtos = productMapper.productsToProductDtos(products);
+        return productDtos;
     }
 
     @Override
     public void updateProduct(Product product) {
-productRepository.saveAndFlush(product);
+        productRepository.saveAndFlush(product);
     }
 
     @Override
@@ -85,7 +96,7 @@ productRepository.saveAndFlush(product);
         image.setContentType(picture.getContentType());
         image.setDescription(picture.getResource().getDescription());
         image.setOriginalName(picture.getOriginalFilename());
-        image.setPathToFile(directory+image.getId());
+        image.setPathToFile(directory + image.getId());
 
         Product product = new Product();
         product.setProductId(id);

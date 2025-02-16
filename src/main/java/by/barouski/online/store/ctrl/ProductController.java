@@ -1,8 +1,8 @@
 package by.barouski.online.store.ctrl;
 
-import by.barouski.online.store.entity.Buyer;
 import by.barouski.online.store.entity.Product;
 import by.barouski.online.store.service.ProductService;
+import by.barouski.online.store.service.dto.ProductDto;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+
+import static org.springframework.util.MimeTypeUtils.IMAGE_JPEG_VALUE;
 
 @RestController
 @RequestMapping("/product")
@@ -23,24 +25,26 @@ public class ProductController {
 
     @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Boolean uploadPicture(@RequestPart(value = "picture", required = false) MultipartFile picture,
-                                 @RequestPart(value = "product") Product product) throws IOException {
-        productService.uploadPicture(picture, product);
+                                 @RequestPart(value = "product") ProductDto productDto) throws IOException {
+        productService.uploadPicture(picture, productDto);
         return Boolean.TRUE;
     }
 
-    @GetMapping(path = "/download/{id}")
+    @GetMapping(path = "/download/{id}", produces = IMAGE_JPEG_VALUE)
     public Resource getPicture(@PathVariable Long id) {
         return productService.getPicture(id);
+
+
     }
 
     @PostMapping
-    public void postProduct(@RequestBody Product product) {
+    public void postProduct(@RequestBody ProductDto productDto) {
 
-        productService.createProduct(product);
+        productService.createProduct(productDto);
     }
 
     @GetMapping
-    List<Product> getAllProducts() {
+    List<ProductDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
