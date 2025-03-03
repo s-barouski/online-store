@@ -18,8 +18,8 @@ import java.util.List;
 public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long ID;
+    @Column(name = "authority_id")
+    private Long authority_id;
     @Column(name ="name")
     private String name;
 
@@ -27,7 +27,7 @@ public class Authority {
 //    private List<Buyer> buyers;
     @ManyToMany
     @JoinTable(name="buyer_authority",
-            joinColumns=  @JoinColumn(name="authority_id", referencedColumnName="ID"),
+            joinColumns=  @JoinColumn(name="authority_id", referencedColumnName="authority_id"),
             inverseJoinColumns= @JoinColumn(name="buyer_id", referencedColumnName="buyer_id") )
     private List<Buyer> buyers;
 

@@ -28,17 +28,22 @@ public class Product {
     private Long price;
     @Column(name = "quantity")
     private int quantity;
-    @Column(name = "image_path")
-    protected String imagePath;
+//    @Column(name = "image_path")
+//    protected String imagePath;
 
     @ManyToMany
     @JoinTable(name="cart_of_orders_products",
             joinColumns=  @JoinColumn(name="product_id", referencedColumnName="product_id"),
-            inverseJoinColumns= @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_id"))
+            inverseJoinColumns= @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_of_order_id"))
     private List<CartOfOrder> cartOfOrders;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Image> imageList;
 
+    }
 
-}
+
+
+
+
+

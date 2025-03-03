@@ -37,27 +37,27 @@ public class ProductServiceImpl implements ProductService {
         this.productMapper = productMapper;
     }
 
-    @Override
-    public void uploadPicture(MultipartFile picture, ProductDto productDto) {
-        try {
-            String path = "";
-            if (picture != null) {
-                path = directory + UUID.nameUUIDFromBytes(picture.getBytes());
-                picture.transferTo(Path.of(path));
-            }
-            productDto.setImagePath(path);
-            Product product = productMapper.productDtoToProduct(productDto);
-            productRepository.save(product);
-        } catch (IOException e) {
-            log.error(e.getLocalizedMessage());
-        }
+//    @Override
+//    public void uploadPicture(MultipartFile picture, ProductDto productDto) {
+//        try {
+//            String path = "";
+//            if (picture != null) {
+//                path = directory + UUID.nameUUIDFromBytes(picture.getBytes());
+//                picture.transferTo(Path.of(path));
+//            }
+//            Product product = productMapper.productDtoToProduct(productDto);
+//            product.setImagePath(path);
+//            productRepository.save(product);
+//        } catch (IOException e) {
+//            log.error(e.getLocalizedMessage());
+//        }
+//
+//    }
 
-    }
-
     @Override
-    public Resource getPicture(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(RuntimeException::new);
-        String path = product.getImagePath();
+    public Resource getPicture(UUID id) {
+        Image image = imageRepository.findById(id).orElseThrow(RuntimeException::new);
+        String path = image.getPathToFile();
         return new FileSystemResource(Path.of(path));
     }
 
@@ -106,4 +106,8 @@ public class ProductServiceImpl implements ProductService {
         picture.transferTo(Path.of(image.getPathToFile()));
 
     }
+
+
+
+
 }

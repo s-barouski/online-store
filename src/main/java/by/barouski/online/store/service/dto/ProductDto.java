@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,6 +19,5 @@ public class ProductDto {
     private String description;
     private Long price;
     private int quantity;
-    private String imagePath;
-    private List<Long> imageIds;
+    private List<UUID> imageIds;
 }

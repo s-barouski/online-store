@@ -54,3 +54,9 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db/changelog/cartOfOdrersProductsCreateTable.sql
+  - changeSet:
+     id: image
+     author: Sergey
+     changes:
+       - sqlFile:
+           path: db/changelog/imageCreateTable.sql

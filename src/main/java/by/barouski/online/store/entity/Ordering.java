@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +21,7 @@ public class Ordering {
     @Column(name= "order_id")
     private Long orderId;
     @Column(name= "order_date")
-    private LocalDateTime order_date;
+    private Date order_date;
     @Column(name= "totalCost")
     private Long totalCost;
 

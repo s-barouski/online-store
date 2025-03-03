@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,7 +21,7 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long deliveryId;
     @Column(name = "delivery_date")
-    private LocalDateTime delivery_date;
+    private Date delivery_date;
     @Column(name = "deliveryType")
     private String deliveryType;//enum
     @Column(name = "deliveryCost")

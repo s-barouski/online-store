@@ -37,7 +37,7 @@ public class Buyer {
     @JoinTable(
             name = "buyer_authority",
             joinColumns = @JoinColumn(name = "buyer_id", referencedColumnName = "buyer_id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "authority_id")
     )
     private List<Authority> authorities;
 

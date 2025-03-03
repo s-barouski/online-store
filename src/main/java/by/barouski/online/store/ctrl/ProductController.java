@@ -1,5 +1,6 @@
 package by.barouski.online.store.ctrl;
 
+import by.barouski.online.store.entity.CartOfOrder;
 import by.barouski.online.store.entity.Product;
 import by.barouski.online.store.service.ProductService;
 import by.barouski.online.store.service.dto.ProductDto;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.util.MimeTypeUtils.IMAGE_JPEG_VALUE;
 
@@ -23,15 +25,15 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Boolean uploadPicture(@RequestPart(value = "picture", required = false) MultipartFile picture,
-                                 @RequestPart(value = "product") ProductDto productDto) throws IOException {
-        productService.uploadPicture(picture, productDto);
-        return Boolean.TRUE;
-    }
+//    @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public Boolean uploadPicture(@RequestPart(value = "picture", required = false) MultipartFile picture,
+//                                 @RequestPart(value = "product") ProductDto productDto) throws IOException {
+//        productService.uploadPicture(picture, productDto);
+//        return Boolean.TRUE;
+//    }
 
     @GetMapping(path = "/download/{id}", produces = IMAGE_JPEG_VALUE)
-    public Resource getPicture(@PathVariable Long id) {
+    public Resource getPicture(@PathVariable UUID id) {
         return productService.getPicture(id);
 
 
@@ -54,8 +56,14 @@ public class ProductController {
         productService.putPicture(picture, id);
     }
 
+
     @DeleteMapping
     void deleteProduct(@RequestParam Long id) {
         productService.deleteProduct(id);
+    }
+
+    @PostMapping("/add/{productId}/to/{cartOfOrderId}")
+    public void addToCart(@PathVariable Long productId, @PathVariable Long cartOfOrderId){
+
     }
 }
