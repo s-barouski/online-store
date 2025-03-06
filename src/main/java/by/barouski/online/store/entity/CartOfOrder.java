@@ -23,7 +23,7 @@ public class CartOfOrder {
     @Column(name = "quantity_of_goods")
     private int quantityOfGoods;
     @Column(name = "total_cost")
-    private float totalCost;
+    private Float totalCost;
 
     @ManyToMany
     @JoinTable(name="cart_of_orders_products",

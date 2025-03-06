@@ -1,8 +1,9 @@
 package by.barouski.online.store.service;
 
-import by.barouski.online.store.entity.Image;
-import by.barouski.online.store.entity.Product;
+import by.barouski.online.store.entity.*;
+import by.barouski.online.store.repo.CartOfOrdersRepository;
 import by.barouski.online.store.repo.ImageRepository;
+import by.barouski.online.store.repo.OrderRepository;
 import by.barouski.online.store.repo.ProductRepository;
 import by.barouski.online.store.service.dto.ProductDto;
 import by.barouski.online.store.service.mapper.ProductMapper;
@@ -18,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -30,11 +35,15 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
     private final ProductMapper productMapper;
+    private final CartOfOrdersRepository cartOfOrdersRepository;
+    private final OrderRepository orderRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository, ProductMapper productMapper, CartOfOrdersRepository cartOfOrdersRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.imageRepository = imageRepository;
         this.productMapper = productMapper;
+        this.cartOfOrdersRepository = cartOfOrdersRepository;
+        this.orderRepository = orderRepository;
     }
 
 //    @Override
@@ -104,10 +113,38 @@ public class ProductServiceImpl implements ProductService {
 
         imageRepository.save(image);
         picture.transferTo(Path.of(image.getPathToFile()));
-
     }
 
+    @Override
+    @Transactional
+    public void addToCart(Long productId, Long cartOfOrderId) {
+        CartOfOrder cartOfOrder = cartOfOrdersRepository.findById(cartOfOrderId).get();
+        List<Product> products = cartOfOrder.getProducts();
+        Product product = productRepository.findById(productId).get();
+        products.add(product);
+        cartOfOrder.setProducts(products);
+        cartOfOrder.setTotalCost(cartOfOrder.getTotalCost()+product.getPrice());
+        cartOfOrder.setQuantityOfGoods(cartOfOrder.getQuantityOfGoods()+1);
+        cartOfOrdersRepository.save(cartOfOrder);
 
+        }
+
+    @Override
+    public void buyAllProducts(Long cartOfOrderId, String adress, DeliveryType deliveryType ) {
+        CartOfOrder cartOfOrder = cartOfOrdersRepository.findById(cartOfOrderId).get();
+        Ordering order = new Ordering();
+        order.setTotalCost(cartOfOrder.getTotalCost());
+        order.setOrder_date(Date.from(Instant.now()));
+        order.setOrderHistory(cartOfOrder.getBuyer().getOrderHistory());
+        Delivery delivery = new Delivery();
+        delivery.setDelivery_date(Date.from(Instant.now().plus(Duration.ofDays(3))));
+        delivery.setDeliveryCost(0L);
+        delivery.setDeliveryType(deliveryType);// сделать энам
+        delivery.setAddress(adress);
+        order.setDelivery(delivery);
+        orderRepository.save(order);
+
+    }
 
 
 }

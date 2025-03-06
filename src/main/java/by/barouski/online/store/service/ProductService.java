@@ -27,5 +27,7 @@ public interface ProductService {
     void putPicture(MultipartFile picture, Long id) throws IOException;
 
 
+    void addToCart(Long productId, Long cartOfOrderId);
 
+    void buyAllProducts(Long cartOfOrderId);
 }

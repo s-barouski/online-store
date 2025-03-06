@@ -63,7 +63,12 @@ public class ProductController {
     }
 
     @PostMapping("/add/{productId}/to/{cartOfOrderId}")
-    public void addToCart(@PathVariable Long productId, @PathVariable Long cartOfOrderId){
+    public void addToCart(@PathVariable Long productId, @PathVariable Long cartOfOrderId) {
+        productService.addToCart(productId, cartOfOrderId);
+    }
 
+    @PostMapping("{buy/from/{cartOfOrderId}")
+    public void buyAllProducts (@PathVariable Long cartOfOrderId){
+        productService.buyAllProducts(cartOfOrderId);
     }
 }

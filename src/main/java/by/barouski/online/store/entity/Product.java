@@ -25,9 +25,9 @@ public class Product {
     @Column(name = "description")
     private String description;
     @Column(name = "price")
-    private Long price;
+    private Float price;
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 //    @Column(name = "image_path")
 //    protected String imagePath;
 
