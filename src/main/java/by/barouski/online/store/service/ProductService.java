@@ -1,5 +1,6 @@
 package by.barouski.online.store.service;
 
+import by.barouski.online.store.entity.DeliveryType;
 import by.barouski.online.store.entity.Product;
 import by.barouski.online.store.service.dto.ProductDto;
 import org.springframework.core.io.Resource;
@@ -29,5 +30,7 @@ public interface ProductService {
 
     void addToCart(Long productId, Long cartOfOrderId);
 
-    void buyAllProducts(Long cartOfOrderId);
+    void buyAllProducts(Long cartOfOrderId, String address, DeliveryType deliveryType );
+
+    void buyOneProduct(Long productId, Long cartOfOrderId, String address, DeliveryType deliveryType );
 }

@@ -24,7 +24,7 @@ public class Delivery {
     @Column(name = "delivery_date")
     private Date delivery_date;
     @Column(name = "deliveryType")
-    private String deliveryType;//enum
+    private DeliveryType deliveryType;//enum
     @Column(name = "deliveryCost")
     private Long deliveryCost; // везде большой лонг
     @Column(name = "address")

@@ -1,10 +1,7 @@
 package by.barouski.online.store.service;
 
 import by.barouski.online.store.entity.*;
-import by.barouski.online.store.repo.CartOfOrdersRepository;
-import by.barouski.online.store.repo.ImageRepository;
-import by.barouski.online.store.repo.OrderRepository;
-import by.barouski.online.store.repo.ProductRepository;
+import by.barouski.online.store.repo.*;
 import by.barouski.online.store.service.dto.ProductDto;
 import by.barouski.online.store.service.mapper.ProductMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -21,10 +18,7 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -37,13 +31,15 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
     private final CartOfOrdersRepository cartOfOrdersRepository;
     private final OrderRepository orderRepository;
+    private final DeliveryService deliveryService;
 
-    public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository, ProductMapper productMapper, CartOfOrdersRepository cartOfOrdersRepository, OrderRepository orderRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ImageRepository imageRepository, ProductMapper productMapper, CartOfOrdersRepository cartOfOrdersRepository, OrderRepository orderRepository, DeliveryService deliveryService) {
         this.productRepository = productRepository;
         this.imageRepository = imageRepository;
         this.productMapper = productMapper;
         this.cartOfOrdersRepository = cartOfOrdersRepository;
         this.orderRepository = orderRepository;
+        this.deliveryService = deliveryService;
     }
 
 //    @Override
@@ -123,27 +119,51 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(productId).get();
         products.add(product);
         cartOfOrder.setProducts(products);
-        cartOfOrder.setTotalCost(cartOfOrder.getTotalCost()+product.getPrice());
-        cartOfOrder.setQuantityOfGoods(cartOfOrder.getQuantityOfGoods()+1);
+        cartOfOrder.setTotalCost(cartOfOrder.getTotalCost() + product.getPrice());
+        cartOfOrder.setQuantityOfGoods(cartOfOrder.getQuantityOfGoods() + 1);
         cartOfOrdersRepository.save(cartOfOrder);
 
-        }
+    }
+
 
     @Override
-    public void buyAllProducts(Long cartOfOrderId, String adress, DeliveryType deliveryType ) {
+    public void buyAllProducts(Long cartOfOrderId, String address, DeliveryType deliveryType) {
         CartOfOrder cartOfOrder = cartOfOrdersRepository.findById(cartOfOrderId).get();
         Ordering order = new Ordering();
         order.setTotalCost(cartOfOrder.getTotalCost());
         order.setOrder_date(Date.from(Instant.now()));
         order.setOrderHistory(cartOfOrder.getBuyer().getOrderHistory());
-        Delivery delivery = new Delivery();
-        delivery.setDelivery_date(Date.from(Instant.now().plus(Duration.ofDays(3))));
-        delivery.setDeliveryCost(0L);
-        delivery.setDeliveryType(deliveryType);// сделать энам
-        delivery.setAddress(adress);
+        List<Product> products = cartOfOrder.getProducts();
+        products.forEach((product) -> product.setQuantity(product.getQuantity() - 1));
+        productRepository.saveAll(products);
+        Delivery delivery = deliveryService.createDelivery(deliveryType, address);
         order.setDelivery(delivery);
         orderRepository.save(order);
+        cartOfOrder.setProducts(List.of());
+        cartOfOrdersRepository.save(cartOfOrder);
 
+    }
+
+    public void buyOneProduct(Long productId, Long cartOfOrderId, String address, DeliveryType deliveryType) {
+        CartOfOrder cartOfOrder = cartOfOrdersRepository.findById(cartOfOrderId).get();
+        Ordering order = new Ordering();
+        Product oneProduct = new Product();
+        for (Product product : cartOfOrder.getProducts()) {
+            if (Objects.equals(productId, product.getProductId())) {
+                oneProduct = product;
+                break;
+            }
+        }
+        //        oneProduct =cartOfOrder.getProducts().stream()
+//                .filter(p -> Objects.equals(p.getProductId(), productId)).findFirst().get();
+
+        order.setTotalCost(oneProduct.getPrice());
+        order.setOrder_date(new Date());
+        order.setOrderHistory(cartOfOrder.getBuyer().getOrderHistory());
+        Delivery delivery = deliveryService.createDelivery(deliveryType, address);
+        order.setDelivery(delivery);
+        orderRepository.save(order);
+        cartOfOrder.getProducts().remove(oneProduct);
     }
 
 
