@@ -33,4 +33,5 @@ public interface ProductService {
     void buyAllProducts(Long cartOfOrderId, String address, DeliveryType deliveryType );
 
     void buyOneProduct(Long productId, Long cartOfOrderId, String address, DeliveryType deliveryType );
+
 }

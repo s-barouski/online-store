@@ -15,7 +15,7 @@ public class DeliveryServiceImpl implements DeliveryService{
     @Override
     public Delivery createDelivery (DeliveryType deliveryType, String address){
         Delivery delivery = new Delivery();
-        delivery.setDelivery_date(Date.from(Instant.now().plus(Duration.ofDays(3))));
+       // delivery.setDelivery_date(Date.from(Instant.now().plus(Duration.ofDays(3))));
         delivery.setDeliveryCost(0L);
         delivery.setDeliveryType(deliveryType);// сделать энам
         delivery.setAddress(address);

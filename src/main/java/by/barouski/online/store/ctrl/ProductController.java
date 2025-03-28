@@ -1,6 +1,7 @@
 package by.barouski.online.store.ctrl;
 
 import by.barouski.online.store.entity.CartOfOrder;
+import by.barouski.online.store.entity.DeliveryType;
 import by.barouski.online.store.entity.Product;
 import by.barouski.online.store.service.ProductService;
 import by.barouski.online.store.service.dto.ProductDto;
@@ -35,8 +36,6 @@ public class ProductController {
     @GetMapping(path = "/download/{id}", produces = IMAGE_JPEG_VALUE)
     public Resource getPicture(@PathVariable UUID id) {
         return productService.getPicture(id);
-
-
     }
 
     @PostMapping
@@ -62,13 +61,19 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
-    @PostMapping("/add/{productId}/to/{cartOfOrderId}")
-    public void addToCart(@PathVariable Long productId, @PathVariable Long cartOfOrderId) {
+    @PostMapping("/add")
+    public void addToCart(@RequestParam Long productId, @RequestParam Long cartOfOrderId) {
         productService.addToCart(productId, cartOfOrderId);
     }
 
-    @PostMapping("{buy/from/{cartOfOrderId}")
-    public void buyAllProducts (@PathVariable Long cartOfOrderId){
-        productService.buyAllProducts(cartOfOrderId);
+    @PostMapping("/buyall")
+    public void buyAllProducts(@RequestParam Long cartOfOrderId, @RequestParam String address, @RequestParam DeliveryType deliveryType) {
+        productService.buyAllProducts(cartOfOrderId, address, deliveryType);
+    }
+
+
+    @PostMapping("/buyone")
+    public void buyOneProducts( @RequestParam Long productId,@RequestParam Long cartOfOrderId, @RequestParam String address, @RequestParam DeliveryType deliveryType) {
+        productService.buyOneProduct(productId, cartOfOrderId, address, deliveryType);
     }
 }

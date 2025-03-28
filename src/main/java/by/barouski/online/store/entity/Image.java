@@ -11,7 +11,7 @@ import java.util.UUID;
 @Setter
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
     @Column(name = "path_to_file")

@@ -15,9 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.*;
 
 @Slf4j
@@ -41,23 +40,6 @@ public class ProductServiceImpl implements ProductService {
         this.orderRepository = orderRepository;
         this.deliveryService = deliveryService;
     }
-
-//    @Override
-//    public void uploadPicture(MultipartFile picture, ProductDto productDto) {
-//        try {
-//            String path = "";
-//            if (picture != null) {
-//                path = directory + UUID.nameUUIDFromBytes(picture.getBytes());
-//                picture.transferTo(Path.of(path));
-//            }
-//            Product product = productMapper.productDtoToProduct(productDto);
-//            product.setImagePath(path);
-//            productRepository.save(product);
-//        } catch (IOException e) {
-//            log.error(e.getLocalizedMessage());
-//        }
-//
-//    }
 
     @Override
     public Resource getPicture(UUID id) {
@@ -89,24 +71,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
-
     }
 
     @Override
     @Transactional(rollbackFor = {SQLException.class, IOException.class},
-            isolation = Isolation.READ_COMMITTED)
+            isolation = Isolation.SERIALIZABLE)
     public void putPicture(MultipartFile picture, Long id) throws IOException {
         Image image = new Image();
-        image.setId(UUID.nameUUIDFromBytes(picture.getBytes()));
         image.setContentType(picture.getContentType());
         image.setDescription(picture.getResource().getDescription());
         image.setOriginalName(picture.getOriginalFilename());
-        image.setPathToFile(directory + image.getId());
-
+        image.setPathToFile(directory + picture.getOriginalFilename());
         Product product = new Product();
         product.setProductId(id);
         image.setProduct(product);
-
         imageRepository.save(image);
         picture.transferTo(Path.of(image.getPathToFile()));
     }
@@ -122,7 +100,6 @@ public class ProductServiceImpl implements ProductService {
         cartOfOrder.setTotalCost(cartOfOrder.getTotalCost() + product.getPrice());
         cartOfOrder.setQuantityOfGoods(cartOfOrder.getQuantityOfGoods() + 1);
         cartOfOrdersRepository.save(cartOfOrder);
-
     }
 
 
@@ -131,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
         CartOfOrder cartOfOrder = cartOfOrdersRepository.findById(cartOfOrderId).get();
         Ordering order = new Ordering();
         order.setTotalCost(cartOfOrder.getTotalCost());
-        order.setOrder_date(Date.from(Instant.now()));
+        order.setOrder_date(new Date(new java.util.Date().getTime()));
         order.setOrderHistory(cartOfOrder.getBuyer().getOrderHistory());
         List<Product> products = cartOfOrder.getProducts();
         products.forEach((product) -> product.setQuantity(product.getQuantity() - 1));
@@ -141,7 +118,6 @@ public class ProductServiceImpl implements ProductService {
         orderRepository.save(order);
         cartOfOrder.setProducts(List.of());
         cartOfOrdersRepository.save(cartOfOrder);
-
     }
 
     public void buyOneProduct(Long productId, Long cartOfOrderId, String address, DeliveryType deliveryType) {
@@ -158,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
 //                .filter(p -> Objects.equals(p.getProductId(), productId)).findFirst().get();
 
         order.setTotalCost(oneProduct.getPrice());
-        order.setOrder_date(new Date());
+       // order.setOrder_date(new Date());
         order.setOrderHistory(cartOfOrder.getBuyer().getOrderHistory());
         Delivery delivery = deliveryService.createDelivery(deliveryType, address);
         order.setDelivery(delivery);

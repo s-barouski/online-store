@@ -37,7 +37,7 @@ public class Product {
             inverseJoinColumns= @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_of_order_id"))
     private List<CartOfOrder> cartOfOrders;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product")
     private List<Image> imageList;
 
     }
