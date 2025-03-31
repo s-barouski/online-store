@@ -33,10 +33,10 @@ public class BuyerServiceImpl implements BuyerService {
 
     @Override
     public void createBuyer(Buyer buyer) {
-
         OrderHistory orderHistory = new OrderHistory();
         orderHistory.setBuyer(buyer);
         CartOfOrder cart = new CartOfOrder();
+        cart.setBuyer(buyer);
         buyer.setCartOfOrder(cart);
         buyer.setOrderHistory(orderHistory);
         buyerRepository.save(buyer);

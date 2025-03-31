@@ -1,5 +1,6 @@
 package by.barouski.online.store.service.dto;
 
+import by.barouski.online.store.entity.OrderHistory;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,4 +21,8 @@ public class BuyerDto {
     private Long phoneNumber;
 
     private String email;
+
+    private CartDTO cartDTO;
+
+    private OrderHistoryDTO orderHistoryDTO;
 }

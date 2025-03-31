@@ -32,7 +32,6 @@ public class Buyer {
     @Column(name = "email")
     private String email;
 
-
     @ManyToMany
     @JoinTable(
             name = "buyer_authority",

@@ -2,6 +2,7 @@ package by.barouski.online.store.service;
 
 import by.barouski.online.store.entity.Delivery;
 import by.barouski.online.store.entity.DeliveryType;
+import by.barouski.online.store.repo.DeliveryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,12 @@ import java.util.Date;
 @Slf4j
 @Service
 public class DeliveryServiceImpl implements DeliveryService{
+    private final DeliveryRepository deliveryRepository;
+
+    public DeliveryServiceImpl(DeliveryRepository deliveryRepository) {
+        this.deliveryRepository = deliveryRepository;
+    }
+
     @Override
     public Delivery createDelivery (DeliveryType deliveryType, String address){
         Delivery delivery = new Delivery();
@@ -19,6 +26,7 @@ public class DeliveryServiceImpl implements DeliveryService{
         delivery.setDeliveryCost(0L);
         delivery.setDeliveryType(deliveryType);// сделать энам
         delivery.setAddress(address);
+        deliveryRepository.save(delivery);
         return delivery;
     }
 }

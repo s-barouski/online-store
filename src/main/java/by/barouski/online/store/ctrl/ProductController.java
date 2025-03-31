@@ -47,7 +47,6 @@ public class ProductController {
         productService.putPicture(picture, id);
     }
 
-
     @DeleteMapping
     void deleteProduct(@RequestParam Long id) {
         productService.deleteProduct(id);
@@ -62,7 +61,6 @@ public class ProductController {
     public void buyAllProducts(@RequestParam Long cartOfOrderId, @RequestParam String address, @RequestParam DeliveryType deliveryType) {
         productService.buyAllProducts(cartOfOrderId, address, deliveryType);
     }
-
 
     @PostMapping("/buyone")
     public void buyOneProducts( @RequestParam Long productId,@RequestParam Long cartOfOrderId, @RequestParam String address, @RequestParam DeliveryType deliveryType) {

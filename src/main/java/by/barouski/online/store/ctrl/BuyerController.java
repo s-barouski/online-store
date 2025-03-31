@@ -35,5 +35,7 @@ public class BuyerController {
     void deleteBuyer(@RequestParam Long id) {
         buyerService.deleteBuyer(id);
     }
+
+
 }
 

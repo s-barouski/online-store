@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public void buyAllProducts(Long cartOfOrderId, String address, DeliveryType deliveryType) {
+        public void buyAllProducts(Long cartOfOrderId, String address, DeliveryType deliveryType) {
         CartOfOrder cartOfOrder = cartOfOrdersRepository.findById(cartOfOrderId).get();
         Ordering order = new Ordering();
         order.setTotalCost(cartOfOrder.getTotalCost());
@@ -116,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
         Delivery delivery = deliveryService.createDelivery(deliveryType, address);
         order.setDelivery(delivery);
         orderRepository.save(order);
-        cartOfOrder.setProducts(List.of());
+        cartOfOrder.setProducts(null);
         cartOfOrdersRepository.save(cartOfOrder);
     }
 
@@ -134,13 +134,12 @@ public class ProductServiceImpl implements ProductService {
 //                .filter(p -> Objects.equals(p.getProductId(), productId)).findFirst().get();
 
         order.setTotalCost(oneProduct.getPrice());
-       // order.setOrder_date(new Date());
+       order.setOrder_date(new Date(new java.util.Date().getTime()));
         order.setOrderHistory(cartOfOrder.getBuyer().getOrderHistory());
         Delivery delivery = deliveryService.createDelivery(deliveryType, address);
         order.setDelivery(delivery);
+
         orderRepository.save(order);
         cartOfOrder.getProducts().remove(oneProduct);
     }
-
-
 }
