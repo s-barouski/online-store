@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+
 
 @Entity
 @AllArgsConstructor
@@ -20,9 +21,9 @@ public class Ordering {
     @Column(name= "order_id")
     private Long orderId;
     @Column(name= "order_date")
-    private LocalDateTime order_date;
+    private Date order_date;
     @Column(name= "totalCost")
-    private Long totalCost;
+    private Float totalCost;
 
     @ManyToOne
     @JoinColumn(name = "order_history_id", nullable = false)

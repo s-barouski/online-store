@@ -6,7 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+
 
 @Entity
 @AllArgsConstructor
@@ -20,11 +21,12 @@ public class Delivery {
     @Column(name = "delivery_id")
     private Long deliveryId;
     @Column(name = "delivery_date")
-    private LocalDateTime delivery_date;
+    private Date delivery_date;
     @Column(name = "deliveryType")
-    private String deliveryType;//enum
+    @Enumerated(EnumType.STRING)
+    private DeliveryType deliveryType;//enum
     @Column(name = "deliveryCost")
-    private Long deliveryCost; // везде большой лонг
+    private Long deliveryCost;
     @Column(name = "address")
     private String address;
 

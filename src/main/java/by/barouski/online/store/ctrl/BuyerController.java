@@ -1,7 +1,8 @@
 package by.barouski.online.store.ctrl;
+
 import by.barouski.online.store.service.BuyerService;
-import by.barouski.online.store.service.BuyerServiceImpl;
 import by.barouski.online.store.entity.Buyer;
+import by.barouski.online.store.service.dto.BuyerDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,19 +12,28 @@ import java.util.List;
 public class BuyerController {
     private final BuyerService buyerService;
 
-
     public BuyerController(BuyerService buyerService) {
         this.buyerService = buyerService;
-
     }
 
-    @PostMapping("/buyer")
-    void postBuyer(@RequestBody List<Buyer> buyer) {
+    @PostMapping
+    public void postBuyer(@RequestBody Buyer buyer) {
         buyerService.createBuyer(buyer);
     }
 
     @GetMapping
-    List<Buyer> getAllBuyers() {
+    List<BuyerDto> getAllBuyers() {
         return buyerService.getAllBuyers();
     }
+
+    @PutMapping
+    void putBuyer(@RequestBody Buyer buyer) {
+        buyerService.updateBuyer(buyer);
+    }
+
+    @DeleteMapping
+    void deleteBuyer(@RequestParam Long id) {
+        buyerService.deleteBuyer(id);
+    }
 }
+

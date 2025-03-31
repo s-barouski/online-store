@@ -18,16 +18,17 @@ import java.util.List;
 public class CartOfOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
+    @Column(name = "cart_of_order_id")
     private Long cartId;
     @Column(name = "quantity_of_goods")
     private int quantityOfGoods;
     @Column(name = "total_cost")
-    private float totalCost;
+    private Float totalCost;
+
 
     @ManyToMany
     @JoinTable(name="cart_of_orders_products",
-            joinColumns=  @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_id"),
+            joinColumns=  @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_of_order_id"),
             inverseJoinColumns= @JoinColumn(name="product_id", referencedColumnName="product_id"))
     private List<Product> products;
 
