@@ -41,10 +41,10 @@ public class Buyer {
     )
     private List<Authority> authorities;
 
-    @OneToOne(mappedBy = "buyer")
+    @OneToOne(mappedBy = "buyer", cascade = CascadeType.ALL)
     private OrderHistory orderHistory;
 
-    @OneToOne(mappedBy = "buyer")
+    @OneToOne(mappedBy = "buyer", cascade = CascadeType.ALL)
     private CartOfOrder cartOfOrder;
 
 }

@@ -1,8 +1,8 @@
 package by.barouski.online.store.ctrl;
 
 import by.barouski.online.store.service.BuyerService;
-import by.barouski.online.store.service.BuyerServiceImpl;
 import by.barouski.online.store.entity.Buyer;
+import by.barouski.online.store.service.dto.BuyerDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class BuyerController {
     }
 
     @GetMapping
-    List<Buyer> getAllBuyers() {
+    List<BuyerDto> getAllBuyers() {
         return buyerService.getAllBuyers();
     }
 

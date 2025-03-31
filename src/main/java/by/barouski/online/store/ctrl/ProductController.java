@@ -26,13 +26,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-//    @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-//    public Boolean uploadPicture(@RequestPart(value = "picture", required = false) MultipartFile picture,
-//                                 @RequestPart(value = "product") ProductDto productDto) throws IOException {
-//        productService.uploadPicture(picture, productDto);
-//        return Boolean.TRUE;
-//    }
-
     @GetMapping(path = "/download/{id}", produces = IMAGE_JPEG_VALUE)
     public Resource getPicture(@PathVariable UUID id) {
         return productService.getPicture(id);
@@ -40,7 +33,6 @@ public class ProductController {
 
     @PostMapping
     public void postProduct(@RequestBody ProductDto productDto) {
-
         productService.createProduct(productDto);
     }
 

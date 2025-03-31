@@ -25,6 +25,7 @@ public class CartOfOrder {
     @Column(name = "total_cost")
     private Float totalCost;
 
+
     @ManyToMany
     @JoinTable(name="cart_of_orders_products",
             joinColumns=  @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_of_order_id"),

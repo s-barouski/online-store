@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,8 +38,9 @@ public class Product {
             inverseJoinColumns= @JoinColumn(name="cart_of_order_id", referencedColumnName="cart_of_order_id"))
     private List<CartOfOrder> cartOfOrders;
 
-    @OneToMany(mappedBy = "product")
-    private List<Image> imageList;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> imageList = new ArrayList<>();
 
     }
 
